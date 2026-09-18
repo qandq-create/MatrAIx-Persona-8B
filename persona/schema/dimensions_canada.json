@@ -1,0 +1,1004 @@
+{
+  "schemaVersion": "0.1.0-canada",
+  "name": "Canadian Market Persona Supplement (Choice B)",
+  "note": "Parallel, additive schema for the Canadian persona system (Decision 0020, Option 2 architecture). Does not modify persona/schema/dimensions.json. Intended to be loaded alongside the base 1,290-dim catalog via persona_dimension_catalog.py's catalog_path parameter, once threaded through templating.py. Covers gaps identified against dimensions.json: purchase behavior by product category, consumer-specific psychographics, and media-consumption-by-channel. Values and category boundaries are placeholders for Step 1.2 concept validation, following the structural PATTERN found in Vividata's Opticks 2017 variable dictionary (frequency/type/price-tier/channel decomposition; paired-attitude psychographic themes) and PRIZM5's documented methodology (Environics Analytics, both accessed this session) -- not a reproduction of either vendor's proprietary variable list or observed data. To be rebuilt against real licensed data per TRD-1 Step 1.5 once a license exists; PRIZM5/Vividata's real segment and marginal structure feeds Stage 1 calibration per Decision 0022, not this file's dimension definitions.",
+  "indexConvention": "Sequential integers 1-99, independent of dimensions.json's own 1-1290 indexing -- this file's dims are additive, not inserted into the base sequence.",
+  "reference_sources": [
+    "Vividata / Opticks Powered by Vividata 2017 - Variables (Environics Analytics) -- structural pattern only (category taxonomy, frequency/type/price/channel decomposition), not the literal variable list",
+    "PRIZM Release Notes 2026 (Environics Analytics, public) -- methodology, Social Group axes",
+    "StatCan Census Profile 2021 (Open Licence, public) -- see canada-data/statcan/ for pulled samples",
+    "Decision 0022 -- scopes PRIZM5/Vividata to calibration input + derived projection layer, not native schema dims"
+  ],
+  "dimensions": [
+    {
+      "id": "purch_grocery_frequency",
+      "label": "Grocery Shopping Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona shops for groceries.",
+      "values": ["Multiple times a week", "Weekly", "Bi-weekly", "Monthly or less"],
+      "index": 1,
+      "phrase": "shops for groceries {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_grocery_brand_orientation",
+      "label": "Grocery Brand Orientation",
+      "category": "Behavior: Purchase",
+      "description": "Preference for store-brand vs. national-brand groceries.",
+      "values": ["Store-brand preferring", "Mostly store-brand", "Balanced", "Mostly national brands", "National-brand loyal"],
+      "index": 2,
+      "phrase": "is {value_lower} on grocery brands",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_grocery_organic_affinity",
+      "label": "Organic/Natural Food Affinity",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona chooses organic or natural food options.",
+      "values": ["Never buys organic", "Occasionally buys organic", "Regularly buys organic", "Always prioritizes organic"],
+      "index": 3,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_grocery_promotion_usage",
+      "label": "Flyer/Coupon Usage",
+      "category": "Behavior: Purchase",
+      "description": "How much the persona relies on flyers and coupons when grocery shopping.",
+      "values": ["Never uses flyers/coupons", "Occasionally checks flyers", "Regularly plans around flyers", "Always shops by the flyer"],
+      "index": 4,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_grocery_basket_spend",
+      "label": "Weekly Grocery Spend Band",
+      "category": "Behavior: Purchase",
+      "description": "Typical weekly household grocery spend.",
+      "values": ["Under $75", "$75-$150", "$150-$250", "$250+"],
+      "index": 5,
+      "phrase": "spends {value} on groceries weekly",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_alcohol_category_preference",
+      "label": "Alcohol Category Preference",
+      "category": "Behavior: Purchase",
+      "description": "Which alcohol category the persona leans toward, if any.",
+      "values": ["Non-drinker", "Beer-leaning", "Wine-leaning", "Spirits-leaning", "Mixed"],
+      "index": 6,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_alcohol_price_tier",
+      "label": "Alcohol Price Tier",
+      "category": "Behavior: Purchase",
+      "description": "Typical price tier for alcohol purchases.",
+      "values": ["Discount", "Value", "Mid-range", "Premium", "Does not drink"],
+      "index": 7,
+      "phrase": "buys {value_lower} alcohol",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_alcohol_purchase_channel",
+      "label": "Alcohol Purchase Channel",
+      "category": "Behavior: Purchase",
+      "description": "Where the persona typically buys alcohol.",
+      "values": ["Grocery store", "Specialty liquor store", "Brewery/winery direct", "Online", "Does not drink"],
+      "index": 8,
+      "phrase": "buys alcohol via {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_alcohol_frequency",
+      "label": "Alcohol Purchase Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona buys alcohol.",
+      "values": ["Never", "A few times a year", "Monthly", "Weekly or more"],
+      "index": 9,
+      "phrase": "buys alcohol {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_auto_vehicle_class",
+      "label": "Vehicle Class Preference",
+      "category": "Behavior: Purchase",
+      "description": "Preferred vehicle class, if the persona owns or intends to own a vehicle.",
+      "values": ["Compact/economy", "Sedan", "SUV/crossover", "Truck", "Luxury", "No vehicle"],
+      "index": 10,
+      "phrase": "prefers a {value_lower} vehicle",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_auto_fuel_preference",
+      "label": "Fuel Type Preference",
+      "category": "Behavior: Purchase",
+      "description": "Preferred vehicle fuel/powertrain type.",
+      "values": ["Gasoline", "Hybrid", "Electric", "Diesel", "No preference"],
+      "index": 11,
+      "phrase": "prefers {value_lower} vehicles",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_auto_acquisition_method",
+      "label": "Vehicle Acquisition Method",
+      "category": "Behavior: Purchase",
+      "description": "How the persona typically acquires a vehicle.",
+      "values": ["Buys new", "Buys used", "Leases", "Doesn't own a vehicle"],
+      "index": 12,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_auto_maintenance_style",
+      "label": "Vehicle Maintenance Style",
+      "category": "Behavior: Purchase",
+      "description": "How the persona handles vehicle maintenance.",
+      "values": ["DIY", "Local independent shop", "Dealership service", "Doesn't own a vehicle"],
+      "index": 13,
+      "phrase": "uses {value_lower} for vehicle maintenance",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_apparel_frequency",
+      "label": "Apparel Shopping Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona shops for clothing.",
+      "values": ["Rarely", "A few times a year", "Monthly", "Weekly"],
+      "index": 14,
+      "phrase": "shops for clothing {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_apparel_price_tier",
+      "label": "Apparel Price Tier",
+      "category": "Behavior: Purchase",
+      "description": "Typical price tier for clothing purchases.",
+      "values": ["Discount/thrift", "Value/mass-market", "Mid-range", "Premium/designer"],
+      "index": 15,
+      "phrase": "buys {value_lower} clothing",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_apparel_channel",
+      "label": "Apparel Shopping Channel",
+      "category": "Behavior: Purchase",
+      "description": "Where the persona typically shops for clothing.",
+      "values": ["Mall/department store", "Big-box retailer", "Specialty boutique", "Online-first"],
+      "index": 16,
+      "phrase": "shops for clothing at a {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_personalcare_spend_tier",
+      "label": "Personal Care Spend Tier",
+      "category": "Behavior: Purchase",
+      "description": "Overall spend level on personal care/cosmetics products.",
+      "values": ["Minimal", "Moderate", "Above-average", "High"],
+      "index": 17,
+      "phrase": "has {value_lower} personal-care spend",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_personalcare_natural_affinity",
+      "label": "Natural/Organic Personal Care Affinity",
+      "category": "Behavior: Purchase",
+      "description": "Preference for natural/organic personal care products.",
+      "values": ["No preference", "Some preference", "Strong preference"],
+      "index": 18,
+      "phrase": "has {value_lower} for natural personal-care products",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_personalcare_brand_loyalty",
+      "label": "Personal Care Brand Loyalty",
+      "category": "Behavior: Purchase",
+      "description": "How loyal the persona is to personal care brands.",
+      "values": ["Switches often", "Somewhat loyal", "Highly loyal"],
+      "index": 19,
+      "phrase": "{value_lower} to personal-care brands",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_electronics_adoption_speed",
+      "label": "Electronics Adoption Speed",
+      "category": "Behavior: Purchase",
+      "description": "How quickly the persona adopts new electronics.",
+      "values": ["Laggard", "Late majority", "Early majority", "Early adopter"],
+      "index": 20,
+      "phrase": "is an {value_lower} for electronics",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_electronics_price_tier",
+      "label": "Electronics Price Tier",
+      "category": "Behavior: Purchase",
+      "description": "Typical price tier for electronics purchases.",
+      "values": ["Budget", "Mid-range", "Premium/flagship"],
+      "index": 21,
+      "phrase": "buys {value_lower} electronics",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_electronics_upgrade_frequency",
+      "label": "Device Upgrade Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona upgrades personal devices.",
+      "values": ["Uses until it breaks", "Every few years", "Yearly or more"],
+      "index": 22,
+      "phrase": "upgrades devices {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_homeimprov_diy_orientation",
+      "label": "Home Improvement DIY Orientation",
+      "category": "Behavior: Purchase",
+      "description": "Whether the persona does home improvement work themselves or hires out.",
+      "values": ["Always hires a contractor", "Mostly contractor", "Mixed", "Mostly DIY", "Always DIY"],
+      "index": 23,
+      "phrase": "is {value_lower} for home improvement",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_homeimprov_spend_tier",
+      "label": "Annual Home Improvement Spend",
+      "category": "Behavior: Purchase",
+      "description": "Typical yearly spend on home improvement.",
+      "values": ["None", "Under $500", "$500-$2,000", "$2,000+"],
+      "index": 24,
+      "phrase": "spends {value} on home improvement yearly",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_homeimprov_project_frequency",
+      "label": "Home Improvement Project Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona undertakes home improvement projects.",
+      "values": ["Rarely/never", "Occasional small projects", "Regular ongoing projects"],
+      "index": 25,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_dining_frequency",
+      "label": "Dining-Out Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona eats at restaurants.",
+      "values": ["Rarely", "Monthly", "Weekly", "Multiple times a week"],
+      "index": 26,
+      "phrase": "eats out {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_dining_price_tier",
+      "label": "Dining Price Tier",
+      "category": "Behavior: Purchase",
+      "description": "Typical restaurant price tier.",
+      "values": ["Fast food/quick service", "Casual dining", "Mid-range", "Fine dining"],
+      "index": 27,
+      "phrase": "prefers {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_dining_mode",
+      "label": "Dining Mode Preference",
+      "category": "Behavior: Purchase",
+      "description": "Preferred way of getting restaurant food.",
+      "values": ["Dine-in", "Takeout", "Delivery", "Mixed"],
+      "index": 28,
+      "phrase": "prefers {value_lower} for dining",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_travel_frequency",
+      "label": "Leisure Travel Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona travels for leisure.",
+      "values": ["Rarely/never", "Once a year", "2-3 times a year", "4+ times a year"],
+      "index": 29,
+      "phrase": "travels for leisure {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_travel_scope",
+      "label": "Domestic vs. International Lean",
+      "category": "Behavior: Purchase",
+      "description": "Whether the persona's travel leans domestic or international.",
+      "values": ["Domestic only", "Mostly domestic", "Balanced", "Mostly international"],
+      "index": 30,
+      "phrase": "has a {value_lower} travel preference",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_travel_spend_tier",
+      "label": "Travel Spend Tier",
+      "category": "Behavior: Purchase",
+      "description": "Typical travel budget tier.",
+      "values": ["Budget", "Mid-range", "Premium", "Luxury"],
+      "index": 31,
+      "phrase": "travels at a {value_lower} budget",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_travel_booking_channel",
+      "label": "Travel Booking Channel",
+      "category": "Behavior: Purchase",
+      "description": "How the persona typically books travel.",
+      "values": ["Travel agent", "General booking website", "Airline/hotel direct", "Package tour"],
+      "index": 32,
+      "phrase": "books travel via {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_finance_banking_channel",
+      "label": "Primary Banking Channel",
+      "category": "Behavior: Purchase",
+      "description": "The persona's primary way of banking.",
+      "values": ["In-branch", "Online banking", "Mobile app", "Telephone"],
+      "index": 33,
+      "phrase": "banks primarily via {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_finance_product_adoption",
+      "label": "Financial Product Adoption Breadth",
+      "category": "Behavior: Purchase",
+      "description": "Breadth of financial products the persona uses.",
+      "values": ["Basic chequing/savings only", "A few products", "Broad product use (credit, investments, insurance)"],
+      "index": 34,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_finance_investment_risk",
+      "label": "Investment Risk Tolerance",
+      "category": "Behavior: Purchase",
+      "description": "The persona's tolerance for investment risk.",
+      "values": ["Very conservative", "Conservative", "Moderate", "Aggressive"],
+      "index": 35,
+      "phrase": "has a {value_lower} investment risk tolerance",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_finance_payment_preference",
+      "label": "Payment Method Preference",
+      "category": "Behavior: Purchase",
+      "description": "The persona's preferred everyday payment method.",
+      "values": ["Cash", "Debit", "Credit card", "Mobile payment"],
+      "index": 36,
+      "phrase": "prefers paying with {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_household_eco_affinity",
+      "label": "Eco-Friendly Household Product Affinity",
+      "category": "Behavior: Purchase",
+      "description": "Preference for eco-friendly household/cleaning products.",
+      "values": ["No preference", "Some preference", "Strong preference"],
+      "index": 37,
+      "phrase": "has {value_lower} for eco-friendly household products",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_household_brand_loyalty",
+      "label": "Household Product Brand Loyalty",
+      "category": "Behavior: Purchase",
+      "description": "How loyal the persona is to household product brands.",
+      "values": ["Switches for price", "Somewhat loyal", "Highly loyal"],
+      "index": 38,
+      "phrase": "is {value_lower} to household-product brands",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_household_bulk_buying",
+      "label": "Bulk-Buying Tendency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona buys household products in bulk.",
+      "values": ["Never buys in bulk", "Sometimes buys in bulk", "Regularly buys in bulk"],
+      "index": 39,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_entertainment_streaming_vs_physical",
+      "label": "Streaming vs. Physical Media",
+      "category": "Behavior: Purchase",
+      "description": "Preference for streaming vs. physical media formats.",
+      "values": ["Physical media only", "Mostly physical", "Balanced", "Mostly streaming", "Streaming only"],
+      "index": 40,
+      "phrase": "has a {value_lower} preference for entertainment media",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_entertainment_event_frequency",
+      "label": "Live Event Attendance Frequency",
+      "category": "Behavior: Purchase",
+      "description": "How often the persona attends live entertainment events.",
+      "values": ["Rarely/never", "A few times a year", "Monthly", "Weekly"],
+      "index": 41,
+      "phrase": "attends live events {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "purch_entertainment_hobby_spend",
+      "label": "Hobby/Leisure Spend Tier",
+      "category": "Behavior: Purchase",
+      "description": "Overall spend level on hobbies and leisure activities.",
+      "values": ["Minimal", "Moderate", "Above-average", "High"],
+      "index": 42,
+      "phrase": "has {value_lower} spend on hobbies",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_digital_privacy_concern",
+      "label": "Online Privacy Concern",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Level of concern about data protection and privacy online.",
+      "values": ["Not concerned", "Somewhat concerned", "Very concerned"],
+      "index": 43,
+      "phrase": "is {value_lower} about online privacy",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_digital_dependence",
+      "label": "Digital Dependence",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How essential the internet feels to daily life.",
+      "values": ["Could easily live without it", "Prefers to have it", "Feels essential", "Can't imagine life without it"],
+      "index": 44,
+      "phrase": "the internet feels {value_lower} to them",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_digital_self_expression",
+      "label": "Online Self-Expression",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Comfort expressing oneself online vs. offline.",
+      "values": ["Prefers offline expression", "Neutral", "Freely expresses self online"],
+      "index": 45,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_digital_social_connection",
+      "label": "Online Social Connection Value",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much value the persona places on online social connection.",
+      "values": ["Prefers in-person connection", "Balanced", "Values online connection highly"],
+      "index": 46,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_household_diy_confidence",
+      "label": "DIY Confidence",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Self-assessed confidence in DIY home skills.",
+      "values": ["Not confident", "Somewhat confident", "Very confident"],
+      "index": 47,
+      "phrase": "is {value_lower} in DIY home skills",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_household_decor_interest",
+      "label": "Home Decorating Interest",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Interest in home decorating.",
+      "values": ["Little interest", "Some interest", "Strong interest"],
+      "index": 48,
+      "phrase": "has {value_lower} in home decorating",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_household_pride",
+      "label": "Home Pride/Presentation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much the persona prioritizes keeping their home presentable.",
+      "values": ["Functional, not a priority", "Reasonably kept", "Always presentable"],
+      "index": 49,
+      "phrase": "keeps a home that is {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_alcohol_moderation_concern",
+      "label": "Alcohol Moderation Concern",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Concern about moderating alcohol consumption.",
+      "values": ["Not concerned", "Occasionally concerned", "Actively moderating"],
+      "index": 50,
+      "phrase": "is {value_lower} about alcohol moderation",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_alcohol_quality_orientation",
+      "label": "Alcohol Quality vs. Price Orientation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Whether the persona prioritizes quality or price for alcohol.",
+      "values": ["Price-driven", "Balanced", "Quality-driven regardless of price"],
+      "index": 51,
+      "phrase": "is {value_lower} for alcohol purchases",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_alcohol_experimentation",
+      "label": "Alcohol Brand Experimentation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Willingness to try new alcohol brands.",
+      "values": ["Sticks to known brands", "Occasionally tries new brands", "Regularly experiments"],
+      "index": 52,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_product_early_adopter",
+      "label": "New Product Early-Adopter Tendency",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Tendency to try new products early.",
+      "values": ["Waits for proven products", "Average timing", "Among the first to try"],
+      "index": 53,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_product_brand_advocacy",
+      "label": "Brand Advocacy Tendency",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Tendency to recommend products to others.",
+      "values": ["Rarely recommends products", "Sometimes recommends", "Actively recommends/advises others"],
+      "index": 54,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_product_ad_receptiveness",
+      "label": "Advertising Receptiveness",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How receptive the persona is to advertising.",
+      "values": ["Tunes out ads", "Neutral toward ads", "Finds ads genuinely useful"],
+      "index": 55,
+      "phrase": "is {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_product_quality_vs_price",
+      "label": "Quality vs. Price Orientation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "General orientation toward quality vs. price across purchases.",
+      "values": ["Price is the deciding factor", "Balanced", "Quality matters more than price"],
+      "index": 56,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_health_consciousness",
+      "label": "Health Consciousness",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Overall priority placed on health.",
+      "values": ["Low priority", "Moderate priority", "High priority"],
+      "index": 57,
+      "phrase": "places {value_lower} on health",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_health_ingredient_scrutiny",
+      "label": "Ingredient/Label Scrutiny",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How closely the persona checks food ingredient labels.",
+      "values": ["Rarely checks labels", "Sometimes checks labels", "Always checks ingredients"],
+      "index": 58,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_health_convenience_tradeoff",
+      "label": "Convenience vs. Health Tradeoff",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Whether convenience or health wins when they conflict.",
+      "values": ["Convenience wins", "Balanced", "Health wins over convenience"],
+      "index": 59,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_health_portion_awareness",
+      "label": "Portion Control Awareness",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How actively the persona manages food portions.",
+      "values": ["Not tracked", "Occasionally mindful", "Actively manages portions"],
+      "index": 60,
+      "phrase": "is {value_lower} of portions",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_environment_pay_premium",
+      "label": "Willingness to Pay for Eco-Friendly",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Willingness to pay more for eco-friendly products.",
+      "values": ["Not willing", "Somewhat willing", "Very willing"],
+      "index": 61,
+      "phrase": "is {value_lower} to pay more for eco-friendly products",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_environment_recycling",
+      "label": "Recycling Commitment",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How rigorously the persona recycles.",
+      "values": ["Minimal recycling", "Moderate recycling", "Rigorous recycling"],
+      "index": 62,
+      "phrase": "has {value_lower} habits",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_environment_skepticism",
+      "label": "Climate Change View",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "The persona's view on human-caused climate change.",
+      "values": ["Skeptical it's human-caused", "Uncertain", "Convinced it's human-caused and urgent"],
+      "index": 63,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_environment_packaging_conscious",
+      "label": "Packaging Consciousness",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much product packaging factors into purchase decisions.",
+      "values": ["Not a factor", "Some consideration", "Actively avoids excess packaging"],
+      "index": 64,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_personal_achievement_orientation",
+      "label": "Achievement Orientation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "General drive toward achievement.",
+      "values": ["Low", "Moderate", "High"],
+      "index": 65,
+      "phrase": "has {value_lower} achievement orientation",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_personal_risk_tolerance",
+      "label": "Personal Risk Tolerance",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "General personal (non-financial) risk tolerance.",
+      "values": ["Risk-averse", "Moderate", "Risk-seeking"],
+      "index": 66,
+      "phrase": "is {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_personal_worklife_priority",
+      "label": "Work-Life Balance Priority",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Whether career or personal time takes priority.",
+      "values": ["Career comes first", "Balanced", "Personal time comes first"],
+      "index": 67,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_personal_status_consciousness",
+      "label": "Status Consciousness",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much the persona cares about status/perception.",
+      "values": ["Low", "Moderate", "High"],
+      "index": 68,
+      "phrase": "has {value_lower} status consciousness",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_personal_community_engagement",
+      "label": "Community Engagement",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How involved the persona is in community activities.",
+      "values": ["Rarely involved", "Occasionally involved", "Highly involved"],
+      "index": 69,
+      "phrase": "is {value_lower} in community activities",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_travel_adventure_seeking",
+      "label": "Adventure-Seeking in Travel",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Preference for unfamiliar vs. familiar travel destinations.",
+      "values": ["Prefers familiar destinations", "Open to new destinations", "Actively seeks the unfamiliar"],
+      "index": 70,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_travel_homebody_tendency",
+      "label": "Homebody Tendency",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Preference for staying home vs. going out.",
+      "values": ["Rarely stays in", "Balanced", "Strongly prefers staying home"],
+      "index": 71,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_travel_luxury_seeking",
+      "label": "Luxury Experience Seeking",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Preference for luxury vs. budget travel experiences.",
+      "values": ["Budget-focused", "Balanced", "Seeks luxury experiences"],
+      "index": 72,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_fashion_trend_following",
+      "label": "Fashion Trend Following",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How closely the persona follows fashion trends.",
+      "values": ["Ignores trends", "Aware but not driven by trends", "Closely follows trends"],
+      "index": 73,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_fashion_classic_preference",
+      "label": "Classic vs. Trendy Style Preference",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Preference for classic/timeless vs. trend-driven style.",
+      "values": ["Trend-driven", "Balanced", "Classic/timeless preference"],
+      "index": 74,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_fashion_shopping_enjoyment",
+      "label": "Clothes-Shopping Enjoyment",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much the persona enjoys shopping for clothes.",
+      "values": ["Dislikes it", "Neutral about it", "Enjoys it"],
+      "index": 75,
+      "phrase": "{value_lower} clothes shopping",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_auto_attachment",
+      "label": "Vehicle Attachment",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Emotional attachment to one's vehicle.",
+      "values": ["Purely functional", "Some attachment", "Strong emotional attachment"],
+      "index": 76,
+      "phrase": "feels {value_lower} to their vehicle",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_auto_eco_conscious_choice",
+      "label": "Eco-Conscious Vehicle Choice",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much environmental impact factors into vehicle choice.",
+      "values": ["Not a factor", "Some consideration", "Primary factor"],
+      "index": 77,
+      "phrase": "treats it as {value_lower} in vehicle choice",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_auto_diy_maintenance_confidence",
+      "label": "Vehicle Maintenance DIY Confidence",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Confidence doing one's own vehicle maintenance.",
+      "values": ["Not confident", "Somewhat confident", "Very confident"],
+      "index": 78,
+      "phrase": "is {value_lower} doing own vehicle maintenance",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_tech_enthusiasm",
+      "label": "Technology Enthusiasm",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "General enthusiasm for new technology.",
+      "values": ["Indifferent", "Interested", "Enthusiastic"],
+      "index": 79,
+      "phrase": "is {value_lower} about new technology",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_tech_anxiety",
+      "label": "Technology Anxiety",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Anxiety about keeping up with technology.",
+      "values": ["Comfortable with new tech", "Some hesitation", "Feels left behind by technology"],
+      "index": 80,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_tech_early_adopter",
+      "label": "Tech Early-Adopter Self-Image",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Self-image regarding being early to try new tech.",
+      "values": ["Waits and sees", "Average timing", "Sees self as first-to-try"],
+      "index": 81,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_finance_entrepreneurial",
+      "label": "Entrepreneurial Orientation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Self-identification as entrepreneurial vs. preferring stable employment.",
+      "values": ["Prefers stable employment", "Open to it", "Considers self entrepreneurial"],
+      "index": 82,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_finance_caution",
+      "label": "Financial Caution",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "General caution with money -- spender vs. saver.",
+      "values": ["Spends freely", "Balanced", "Highly cautious/saver"],
+      "index": 83,
+      "phrase": "is {value_lower} with money",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_finance_risk_averse_investing",
+      "label": "Investment Risk Attitude",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Attitude toward investment risk (distinct from behavioral risk tolerance dim).",
+      "values": ["Risk-averse", "Balanced", "Comfortable with risk"],
+      "index": 84,
+      "phrase": "has a {value_lower} investing style",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_finance_cashless_adoption",
+      "label": "Cashless Payment Adoption",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Attitude toward a cashless lifestyle.",
+      "values": ["Prefers cash", "Mixed", "Welcomes a cashless lifestyle"],
+      "index": 85,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_food_cooking_enjoyment",
+      "label": "Cooking Enjoyment",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How much the persona enjoys cooking.",
+      "values": ["Dislikes cooking", "Neutral about cooking", "Loves cooking"],
+      "index": 86,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_food_meal_planning",
+      "label": "Meal-Planning Discipline",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "How rigorously the persona plans meals in advance.",
+      "values": ["No planning", "Some planning", "Rigorous meal planning"],
+      "index": 87,
+      "phrase": "does {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_food_quality_orientation",
+      "label": "Food Quality vs. Price Orientation",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Whether the persona prioritizes quality or price for food.",
+      "values": ["Price-driven", "Balanced", "Quality-driven"],
+      "index": 88,
+      "phrase": "is {value_lower} for food purchases",
+      "defaultValue": null
+    },
+    {
+      "id": "psych_food_local_preference",
+      "label": "Local/Artisanal Food Preference",
+      "category": "Worldview: Consumer Attitudes",
+      "description": "Preference for locally-grown/artisanal food.",
+      "values": ["No preference", "Some preference", "Strong preference for local/artisanal"],
+      "index": 89,
+      "phrase": "has {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "media_tv_usage_intensity",
+      "label": "TV Viewing Intensity",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Overall intensity of television viewing.",
+      "values": ["Light", "Medium-light", "Medium", "Medium-heavy", "Heavy"],
+      "index": 90,
+      "phrase": "is a {value_lower} TV viewer",
+      "defaultValue": null
+    },
+    {
+      "id": "media_tv_program_preference",
+      "label": "TV Program Type Preference",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Preferred type of TV programming.",
+      "values": ["News/Current Affairs", "Drama", "Comedy", "Reality TV", "Sports", "Documentary"],
+      "index": 91,
+      "phrase": "prefers {value_lower} programming",
+      "defaultValue": null
+    },
+    {
+      "id": "media_radio_usage_intensity",
+      "label": "Radio Listening Intensity",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Overall intensity of radio listening.",
+      "values": ["Light", "Medium", "Heavy"],
+      "index": 92,
+      "phrase": "is a {value_lower} radio listener",
+      "defaultValue": null
+    },
+    {
+      "id": "media_radio_format_preference",
+      "label": "Radio Format Preference",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Preferred radio format.",
+      "values": ["News/Talk", "Top 40/Pop", "Rock", "Country", "Urban/Hip-Hop", "Classical/Jazz"],
+      "index": 93,
+      "phrase": "prefers {value_lower} radio",
+      "defaultValue": null
+    },
+    {
+      "id": "media_print_usage_intensity",
+      "label": "Print (Newspaper/Magazine) Usage",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "How often the persona reads print newspapers or magazines.",
+      "values": ["Never", "Occasional reader", "Regular reader"],
+      "index": 94,
+      "phrase": "is a {value_lower} of print media",
+      "defaultValue": null
+    },
+    {
+      "id": "media_internet_usage_intensity",
+      "label": "Internet Usage Intensity",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Overall intensity of internet usage.",
+      "values": ["Light", "Medium", "Heavy"],
+      "index": 95,
+      "phrase": "is a {value_lower} internet user",
+      "defaultValue": null
+    },
+    {
+      "id": "media_internet_content_preference",
+      "label": "Internet Content Preference",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "What the persona primarily uses the internet for.",
+      "values": ["News", "Entertainment", "Shopping", "Social media", "Gaming"],
+      "index": 96,
+      "phrase": "primarily uses the internet for {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "media_streaming_adoption",
+      "label": "Streaming Service Adoption",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "Level of streaming service adoption.",
+      "values": ["None", "One service", "Multiple services", "Cord-cutter, streaming-only"],
+      "index": 97,
+      "phrase": "has {value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "media_outdoor_direct_responsiveness",
+      "label": "Out-of-Home/Direct Mail Responsiveness",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "How responsive the persona is to out-of-home ads and direct mail.",
+      "values": ["Ignores it", "Occasionally notices it", "Actively responds to it"],
+      "index": 98,
+      "phrase": "{value_lower}",
+      "defaultValue": null
+    },
+    {
+      "id": "media_primary_device",
+      "label": "Primary Media Device",
+      "category": "Interests: Media Consumption (CA)",
+      "description": "The device the persona primarily uses to consume media.",
+      "values": ["TV", "Desktop/laptop", "Smartphone", "Tablet"],
+      "index": 99,
+      "phrase": "primarily consumes media via {value_lower}",
+      "defaultValue": null
+    }
+  ]
+}
