@@ -10,9 +10,16 @@ Mechanism (per the session's agreed scope):
   demo_household_income, highest_education) are sampled using the real
   weighted marginals in calibration_canada.json, derived from StatCan
   Census data.
-- province is a plain top-level field (not a catalog dim -- geography
-  breaks the dimension-catalog convention per Step 1.4), weighted by
-  real province population share.
+- geography is a plain top-level structure (not a catalog dim --
+  geography breaks the dimension-catalog convention per Step 1.4):
+  province, census_division, and census_subdivision are populated via
+  real hierarchical population-weighted sampling (a CD chosen within
+  the province, then a CSD chosen within that CD, both real StatCan
+  data -- see geography_canada.py and cd_csd_hierarchy.json).
+  census_tract, dissemination_area, and postal_code exist as fields but
+  stay None and unrendered -- CT/DA need larger per-province downloads
+  not yet pulled, and postal_code specifically needs the paid PCCF to
+  be accurate. Deliberate, not an oversight.
 - A handful of core Choice A identity dims round out the persona
   (uniform-random, no calibration data for these yet).
 - All dims (calibrated or not) are independent draws -- no cross-
@@ -43,10 +50,14 @@ from matraix.agents.persona.templating import (  # noqa: E402
     PERSONA_SYSTEM_TEMPLATE,
 )
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from geography_canada import load_hierarchy, sample_geography, render_geography_block  # noqa: E402
+
 SCHEMA_DIR = REPO_ROOT / "persona" / "schema"
 DIMENSIONS_A = SCHEMA_DIR / "dimensions.json"
 DIMENSIONS_B = SCHEMA_DIR / "dimensions_canada.json"
 CALIBRATION = SCHEMA_DIR / "calibration_canada.json"
+CD_CSD_HIERARCHY = SCHEMA_DIR / "cd_csd_hierarchy.json"
 OUT_DIR = REPO_ROOT / "persona" / "datasets" / "canada-persona-dev-sample"
 
 # Core Choice A identity dims to round out the persona -- uniform-random,
@@ -66,15 +77,19 @@ def weighted_choice(rng: random.Random, probs: dict[str, float]) -> str:
     return rng.choices(values, weights=weights, k=1)[0]
 
 
-def build_persona(rng: random.Random, catalog_by_id: dict[str, dict], calibration: dict) -> dict:
+def build_persona(
+    rng: random.Random, catalog_by_id: dict[str, dict], calibration: dict, hierarchy: dict
+) -> dict:
     dims: dict[str, str] = {}
 
-    # 99 Choice B dims: uniform-random, none calibrated yet.
+    # 103 Choice B dims: uniform-random unless calibrated (the 8 that are
+    # -- age/marital/income/education from Step 1.2, plus the 4 real
+    # ethnicity/language dims from Step 1.3 -- get overwritten below.
     b_dims = load_catalog(DIMENSIONS_B)
     for d in b_dims:
         dims[d["id"]] = rng.choice(d["values"])
 
-    # 4 calibrated Choice A demographic dims: weighted.
+    # Calibrated dims (8 total): weighted from real StatCan marginals.
     for dim_id, probs in calibration["dimensions"].items():
         dims[dim_id] = weighted_choice(rng, probs)
 
@@ -85,8 +100,9 @@ def build_persona(rng: random.Random, catalog_by_id: dict[str, dict], calibratio
             dims[dim_id] = rng.choice(meta["values"])
 
     province = weighted_choice(rng, calibration["province"])
+    geography = sample_geography(rng, province, hierarchy)
 
-    return {"dims": dims, "province": province}
+    return {"dims": dims, "geography": geography}
 
 
 def main() -> None:
@@ -94,18 +110,19 @@ def main() -> None:
     catalog_a = load_catalog(DIMENSIONS_A)
     catalog_by_id = {d["id"]: d for d in catalog_a}
     calibration = json.loads(CALIBRATION.read_text(encoding="utf-8"))
+    hierarchy = load_hierarchy(CD_CSD_HIERARCHY)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     template_path = resolve_persona_template(None, None, PERSONA_SYSTEM_TEMPLATE)
 
     for i in range(1, N_PERSONAS + 1):
         persona_id = f"ca_{i:04d}"
-        built = build_persona(rng, catalog_by_id, calibration)
+        built = build_persona(rng, catalog_by_id, calibration, hierarchy)
 
         persona_yaml = {
             "persona_id": persona_id,
             "version": "canada-concept-v0.1",
-            "province": built["province"],  # plain field, not a catalog dim
+            "geography": built["geography"],  # plain field, not a catalog dim
             "dimensions": built["dims"],
         }
         yaml_path = OUT_DIR / f"persona_{persona_id}.json"
@@ -123,10 +140,12 @@ def main() -> None:
                 summary=None,
                 system_prompt=None,
             )
+            geo_block = render_geography_block(built["geography"])
             rendered = render_persona_template(
                 template_path,
                 persona,
                 catalog_path=(str(DIMENSIONS_A), str(DIMENSIONS_B)),
+                extra_narrative_sections=[geo_block] if geo_block else None,
             )
             (OUT_DIR / f"rendered_{persona_id}.md").write_text(rendered, encoding="utf-8")
 

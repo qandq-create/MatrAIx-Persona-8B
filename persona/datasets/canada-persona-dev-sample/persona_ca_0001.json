@@ -1,7 +1,15 @@
 {
   "persona_id": "ca_0001",
   "version": "canada-concept-v0.1",
-  "province": "Ontario",
+  "geography": {
+    "province": "Ontario",
+    "census_division": "Oxford, County",
+    "census_subdivision": "Woodstock, City",
+    "census_tract": null,
+    "dissemination_area": null,
+    "fsa": null,
+    "postal_code": null
+  },
   "dimensions": {
     "purch_grocery_frequency": "Bi-weekly",
     "purch_grocery_brand_orientation": "Mostly store-brand",

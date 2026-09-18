@@ -47,6 +47,7 @@ def render_persona_template(
     *,
     instruction: str | None = None,
     catalog_path: str | tuple[str, ...] | None = None,
+    extra_narrative_sections: list[str] | None = None,
 ) -> str:
     """Render a persona through the Jinja template.
 
@@ -57,6 +58,14 @@ def render_persona_template(
     locking every persona to the single default catalog regardless of
     which schema its dimensions actually came from. None preserves the
     prior default-catalog-only behavior exactly.
+
+    extra_narrative_sections appends pre-formatted markdown blocks after
+    the dimension-catalog sections (e.g. a Geography block) — geography
+    deliberately isn't a dimensions_canada.json entry (its cardinality
+    breaks the small-closed-value-list convention every dimension relies
+    on), so it's kept out of persona_dimension_catalog.py entirely and
+    handled by the caller instead. None preserves the prior behavior
+    exactly (no extra sections).
     """
     env = Environment(
         loader=FileSystemLoader(template_path.parent),
@@ -70,7 +79,13 @@ def render_persona_template(
         raise FileNotFoundError(f"Persona template not found: {template_path}") from exc
 
     extras_kwargs = {} if catalog_path is None else {"catalog_path": catalog_path}
+    extras = build_template_context_extras(persona.dimensions, **extras_kwargs)
+    if extra_narrative_sections:
+        extras["dimension_profile_narrative"] = [
+            *extras["dimension_profile_narrative"],
+            *extra_narrative_sections,
+        ]
     return template.render(
         **persona.template_context(instruction=instruction),
-        **build_template_context_extras(persona.dimensions, **extras_kwargs),
+        **extras,
     ).strip()
