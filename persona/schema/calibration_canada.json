@@ -47,6 +47,22 @@
   },
   "notes_per_dimension": {
     "demo_marital_status": "Single/In a relationship/Engaged are NOT independently derivable from StatCan's marital-status table -- Census only reports 'never married, not living common-law' as one undifferentiated bucket. That bucket is split evenly three ways as an explicit placeholder, unlike every other value in this file which is a direct derivation from real counts.",
-    "highest_education": "MatrAIx's category boundaries don't map exactly onto Canadian credential categories -- No formal/Some college/Postdoc have no real StatCan equivalent (left at 0); Associate's is approximated from completed college/CEGEP + below-bachelor university certificates, the closest real analogue. Reconstructed total still matches StatCan's reported total exactly despite these boundary approximations."
+    "highest_education": "MatrAIx's category boundaries don't map exactly onto Canadian credential categories -- No formal/Some college/Postdoc have no real StatCan equivalent (left at 0); Associate's is approximated from completed college/CEGEP + below-bachelor university certificates, the closest real analogue. Reconstructed total still matches StatCan's reported total exactly despite these boundary approximations.",
+    "province": "Not a dimensions_canada.json catalog entry -- geography breaks the dimension-catalog convention per Step 1.4, so this lives as a plain top-level persona field, not a dimension. Weighted by real 2021 Census population share per province/territory (Open Licence, public), same derive-dont-hand-write approach as everything else in this file. A coarse Track A placeholder -- real point-geocoding is Track B."
+  },
+  "province": {
+    "Newfoundland and Labrador": 0.0138,
+    "Prince Edward Island": 0.0042,
+    "Nova Scotia": 0.0262,
+    "New Brunswick": 0.021,
+    "Quebec": 0.2298,
+    "Ontario": 0.3845,
+    "Manitoba": 0.0363,
+    "Saskatchewan": 0.0306,
+    "Alberta": 0.1152,
+    "British Columbia": 0.1352,
+    "Yukon": 0.0011,
+    "Northwest Territories": 0.0011,
+    "Nunavut": 0.001
   }
 }
