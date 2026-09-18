@@ -14,6 +14,39 @@
       "65-74": 0.1097,
       "75-84": 0.0568,
       "85+": 0.0233
+    },
+    "demo_marital_status": {
+      "Single": 0.0971,
+      "In a relationship": 0.0971,
+      "Engaged": 0.0971,
+      "Married": 0.4431,
+      "Domestic partnership": 0.0958,
+      "Separated": 0.0279,
+      "Divorced": 0.0853,
+      "Widowed": 0.0565
+    },
+    "demo_household_income": {
+      "<$25k": 0.0899,
+      "$25k-50k": 0.1794,
+      "$50k-100k": 0.3265,
+      "$100k-200k": 0.306,
+      "$200k+": 0.0982
+    },
+    "highest_education": {
+      "No formal": 0.0,
+      "Primary": 0.1615,
+      "Secondary": 0.2669,
+      "Vocational / cert": 0.0871,
+      "Some college": 0.0,
+      "Associate's": 0.2179,
+      "Bachelor's": 0.1746,
+      "Master's": 0.0828,
+      "Doctorate": 0.0092,
+      "Postdoc": 0.0
     }
+  },
+  "notes_per_dimension": {
+    "demo_marital_status": "Single/In a relationship/Engaged are NOT independently derivable from StatCan's marital-status table -- Census only reports 'never married, not living common-law' as one undifferentiated bucket. That bucket is split evenly three ways as an explicit placeholder, unlike every other value in this file which is a direct derivation from real counts.",
+    "highest_education": "MatrAIx's category boundaries don't map exactly onto Canadian credential categories -- No formal/Some college/Postdoc have no real StatCan equivalent (left at 0); Associate's is approximated from completed college/CEGEP + below-bachelor university certificates, the closest real analogue. Reconstructed total still matches StatCan's reported total exactly despite these boundary approximations."
   }
 }
