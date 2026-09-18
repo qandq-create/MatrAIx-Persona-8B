@@ -99,6 +99,7 @@ _SECTIONS: tuple[tuple[str, tuple[str, ...]], ...] = (
         ("State: Emotional", "Behavior: Time", "Behavior: Work"),
     ),
     ("Worldview", ("Worldview: Beliefs",)),
+    ("Consumer attitudes (CA)", ("Worldview: Consumer Attitudes",)),
     (
         "Interests",
         (
@@ -110,6 +111,8 @@ _SECTIONS: tuple[tuple[str, tuple[str, ...]], ...] = (
             "Interests: Food",
         ),
     ),
+    ("Media consumption (CA)", ("Interests: Media Consumption (CA)",)),
+    ("Canadian consumer behavior", ("Behavior: Purchase",)),
     (
         "Skills & expertise",
         (
@@ -186,10 +189,25 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def _load_catalog_by_id(
+    catalog_path: str | tuple[str, ...],
+) -> dict[str, dict[str, Any]]:
+    """Resolve catalog_path to a single by_id lookup, merging when given a
+    tuple of paths (e.g. Choice A's dimensions.json + Choice B's
+    dimensions_canada.json). Later paths win on id collision, though the
+    two catalogs are designed to be additive with no overlapping ids."""
+    if isinstance(catalog_path, str):
+        return load_dimension_catalog(catalog_path)["by_id"]
+    merged: dict[str, dict[str, Any]] = {}
+    for path in catalog_path:
+        merged.update(load_dimension_catalog(path)["by_id"])
+    return merged
+
+
 def dimension_meta(
-    dimension_id: str, *, catalog_path: str = DEFAULT_CATALOG_PATH
+    dimension_id: str, *, catalog_path: str | tuple[str, ...] = DEFAULT_CATALOG_PATH
 ) -> dict[str, Any] | None:
-    return load_dimension_catalog(catalog_path)["by_id"].get(dimension_id)
+    return _load_catalog_by_id(catalog_path).get(dimension_id)
 
 
 def probe_path_for_dimension(
@@ -203,7 +221,7 @@ def probe_path_for_dimension(
 
 
 def values_for_dimension(
-    dimension_id: str, *, catalog_path: str = DEFAULT_CATALOG_PATH
+    dimension_id: str, *, catalog_path: str | tuple[str, ...] = DEFAULT_CATALOG_PATH
 ) -> list[str]:
     meta = dimension_meta(dimension_id, catalog_path=catalog_path)
     if not meta:
@@ -293,11 +311,10 @@ def resolve_profile_max_chars(max_chars: int | None = None) -> int | None:
 def collect_dimension_items(
     dimensions: dict[str, Any],
     *,
-    catalog_path: str = DEFAULT_CATALOG_PATH,
+    catalog_path: str | tuple[str, ...] = DEFAULT_CATALOG_PATH,
 ) -> dict[str, list[tuple[str, str, str]]]:
     """Group keepable dims into section -> [(dim_id, label, value), ...]."""
-    catalog = load_dimension_catalog(catalog_path)
-    by_id: dict[str, dict[str, Any]] = catalog["by_id"]
+    by_id: dict[str, dict[str, Any]] = _load_catalog_by_id(catalog_path)
     grouped: dict[str, list[tuple[str, str, str]]] = {h: [] for h, _ in _SECTIONS}
     grouped["Other attributes"] = []
 
@@ -330,7 +347,7 @@ def collect_dimension_items(
 def build_dimension_narrative(
     dimensions: dict[str, Any],
     *,
-    catalog_path: str = DEFAULT_CATALOG_PATH,
+    catalog_path: str | tuple[str, ...] = DEFAULT_CATALOG_PATH,
     max_chars: int | None = None,
 ) -> list[str]:
     """Schema-driven profile sections for agent roleplay (full 1290, adaptive).
@@ -399,7 +416,7 @@ def build_dimension_narrative(
 def build_template_context_extras(
     dimensions: dict[str, Any],
     *,
-    catalog_path: str = DEFAULT_CATALOG_PATH,
+    catalog_path: str | tuple[str, ...] = DEFAULT_CATALOG_PATH,
     max_chars: int | None = None,
 ) -> dict[str, Any]:
     return {

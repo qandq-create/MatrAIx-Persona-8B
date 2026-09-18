@@ -46,7 +46,18 @@ def render_persona_template(
     persona: Persona,
     *,
     instruction: str | None = None,
+    catalog_path: str | tuple[str, ...] | None = None,
 ) -> str:
+    """Render a persona through the Jinja template.
+
+    catalog_path lets callers point at a non-default dimension catalog
+    (or a tuple of catalogs to merge, e.g. Choice A's dimensions.json plus
+    Choice B's dimensions_canada.json) — previously build_template_context_extras
+    accepted this parameter but no call site ever passed it, silently
+    locking every persona to the single default catalog regardless of
+    which schema its dimensions actually came from. None preserves the
+    prior default-catalog-only behavior exactly.
+    """
     env = Environment(
         loader=FileSystemLoader(template_path.parent),
         undefined=StrictUndefined,
@@ -58,7 +69,8 @@ def render_persona_template(
     except TemplateNotFound as exc:
         raise FileNotFoundError(f"Persona template not found: {template_path}") from exc
 
+    extras_kwargs = {} if catalog_path is None else {"catalog_path": catalog_path}
     return template.render(
         **persona.template_context(instruction=instruction),
-        **build_template_context_extras(persona.dimensions),
+        **build_template_context_extras(persona.dimensions, **extras_kwargs),
     ).strip()
