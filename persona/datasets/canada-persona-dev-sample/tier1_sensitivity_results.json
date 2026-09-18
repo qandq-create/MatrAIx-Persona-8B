@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Grocery brand orientation",
+    "dim": "purch_grocery_brand_orientation",
+    "low_value": "National-brand loyal",
+    "high_value": "Store-brand preferring",
+    "low_answer": 4,
+    "low_rationale": "The 30% price reduction is significant, and since the store-brand appears similar in quality, the cost savings would make switching likely. However, brand loyalty to national brands may slightly temper the likelihood.",
+    "high_answer": 5,
+    "high_rationale": "The 30% price discount aligns with my price-driven mindset, and the similar quality reduces perceived risk. Store-brand affordability fits my budget priorities and frequent flyer/coupon usage habits.",
+    "shifted_as_expected": true
+  },
+  {
+    "name": "Environmental willingness-to-pay",
+    "dim": "psych_environment_pay_premium",
+    "low_value": "Not willing",
+    "high_value": "Very willing",
+    "low_answer": 2,
+    "low_rationale": "The persona is price-driven and not willing to pay extra for eco-friendly options, despite having some eco-preference. The 20% price increase would likely deter purchase of the eco-certified version.",
+    "high_answer": 3,
+    "high_rationale": "While willing to pay for eco-friendly options, the 20% price increase is a significant barrier. Prioritize value-driven purchases while maintaining some eco-consciousness.",
+    "shifted_as_expected": true
+  },
+  {
+    "name": "Household income and price sensitivity",
+    "dim": "demo_household_income",
+    "low_value": "<$25k",
+    "high_value": "$200k+",
+    "low_answer": 3,
+    "low_rationale": "The $9.99/month price point is a barrier for someone with a lower income, and I prioritize value over premium features. While the app could be useful, I\u2019d likely only use it during the free trial without committing to a paid subscription.",
+    "high_answer": 3,
+    "high_rationale": "The $9.99/month price point is relatively high for a subscription service, and I\u2019m price-sensitive. However, the app\u2019s potential value for family coordination might justify the cost, though I\u2019d need clear benefits to commit.",
+    "shifted_as_expected": false
+  },
+  {
+    "name": "Alcohol quality vs. price orientation",
+    "dim": "psych_alcohol_quality_orientation",
+    "low_value": "Price-driven",
+    "high_value": "Quality-driven regardless of price",
+    "low_answer": 2,
+    "low_rationale": "Prioritize price over higher quality, sticking to known brands and value-driven choices.",
+    "high_answer": 2,
+    "high_rationale": "Price is the deciding factor for alcohol purchases, and premium craft beer is twice as expensive. I prioritize value over higher quality ratings.",
+    "shifted_as_expected": false
+  }
+]

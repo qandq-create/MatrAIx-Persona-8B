@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Household income and price sensitivity (controlled)",
+    "dim": "demo_household_income",
+    "low_answer": 2,
+    "low_rationale": "The $9.99/month price point exceeds my budget for non-essential apps, and I prefer free alternatives or wait for proven value before committing to subscriptions.",
+    "high_answer": 3,
+    "high_rationale": "The $9.99/month price is affordable, but privacy concerns and uncertainty about the app's value for family coordination keep me neutral.",
+    "shifted_as_expected": true
+  },
+  {
+    "name": "Alcohol quality vs. price orientation (controlled)",
+    "dim": "psych_alcohol_quality_orientation",
+    "low_answer": 3,
+    "low_rationale": "Balanced between price sensitivity and quality perception, but twice the cost may deter purchase without strong brand loyalty.",
+    "high_answer": 4,
+    "high_rationale": "While quality-driven, the significant price difference and preference for known brands may make me hesitant to pay twice as much unless the premium craft beer is a trusted brand with proven quality.",
+    "shifted_as_expected": true
+  }
+]
