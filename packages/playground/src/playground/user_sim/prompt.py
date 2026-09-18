@@ -43,7 +43,18 @@ def _persona_context(persona: Persona) -> str:
     return "\n".join(parts)
 
 
-def render_persona_block(persona: Persona, *, persona_yaml_path: Optional[str] = None) -> str:
+def render_persona_block(
+    persona: Persona,
+    *,
+    persona_yaml_path: Optional[str] = None,
+    catalog_path: Optional[object] = None,
+) -> str:
+    """catalog_path forwards to render_persona_template (str or tuple of
+    paths, e.g. Choice A's dimensions.json + Choice B's
+    dimensions_canada.json). None preserves the prior single-default-
+    catalog behavior exactly -- see templating.py's own docstring for
+    why this exists (build_template_context_extras accepted this
+    parameter long before any call site actually passed it)."""
     if persona_yaml_path:
         try:
             from matraix.agents.persona.loader import load_persona
@@ -55,7 +66,8 @@ def render_persona_block(persona: Persona, *, persona_yaml_path: Optional[str] =
 
             loaded = load_persona(persona_yaml_path)
             template = resolve_persona_template(loaded, None, PERSONA_SYSTEM_TEMPLATE)
-            return render_persona_template(template, loaded).strip()
+            kwargs = {} if catalog_path is None else {"catalog_path": catalog_path}
+            return render_persona_template(template, loaded, **kwargs).strip()
         except Exception:
             pass
     return _persona_context(persona)
