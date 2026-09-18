@@ -43,12 +43,58 @@
       "Master's": 0.0828,
       "Doctorate": 0.0092,
       "Postdoc": 0.0
+    },
+    "linguistic_community": {
+      "Anglophone": 0.7548,
+      "Francophone": 0.2138,
+      "Bilingual (English and French)": 0.013,
+      "Allophone": 0.0184
+    },
+    "primary_language_canada": {
+      "English": 0.5721,
+      "French": 0.2046,
+      "Mandarin": 0.0193,
+      "Punjabi": 0.019,
+      "Cantonese": 0.0157,
+      "Spanish": 0.0153,
+      "Arabic": 0.0145,
+      "Tagalog": 0.0131,
+      "Italian": 0.0091,
+      "German": 0.0078,
+      "Portuguese": 0.0068,
+      "Urdu": 0.0067,
+      "Other language": 0.096
+    },
+    "demo_ethnicity_canada": {
+      "White/European": 0.7347,
+      "South Asian": 0.0708,
+      "Chinese": 0.0472,
+      "Black": 0.0426,
+      "Filipino": 0.0264,
+      "Arab": 0.0191,
+      "Latin American": 0.016,
+      "Southeast Asian": 0.0107,
+      "West Asian": 0.0099,
+      "Korean": 0.006,
+      "Japanese": 0.0027,
+      "Multiracial/Other": 0.0139
+    },
+    "indigenous_identity": {
+      "Non-Indigenous": 0.9503,
+      "First Nations": 0.0289,
+      "Metis": 0.0172,
+      "Inuit": 0.0019,
+      "Multiple Indigenous identities": 0.0018
     }
   },
   "notes_per_dimension": {
     "demo_marital_status": "Single/In a relationship/Engaged are NOT independently derivable from StatCan's marital-status table -- Census only reports 'never married, not living common-law' as one undifferentiated bucket. That bucket is split evenly three ways as an explicit placeholder, unlike every other value in this file which is a direct derivation from real counts.",
     "highest_education": "MatrAIx's category boundaries don't map exactly onto Canadian credential categories -- No formal/Some college/Postdoc have no real StatCan equivalent (left at 0); Associate's is approximated from completed college/CEGEP + below-bachelor university certificates, the closest real analogue. Reconstructed total still matches StatCan's reported total exactly despite these boundary approximations.",
-    "province": "Not a dimensions_canada.json catalog entry -- geography breaks the dimension-catalog convention per Step 1.4, so this lives as a plain top-level persona field, not a dimension. Weighted by real 2021 Census population share per province/territory (Open Licence, public), same derive-dont-hand-write approach as everything else in this file. A coarse Track A placeholder -- real point-geocoding is Track B."
+    "province": "Not a dimensions_canada.json catalog entry -- geography breaks the dimension-catalog convention per Step 1.4, so this lives as a plain top-level persona field, not a dimension. Weighted by real 2021 Census population share per province/territory (Open Licence, public), same derive-dont-hand-write approach as everything else in this file. A coarse Track A placeholder -- real point-geocoding is Track B.",
+    "linguistic_community": "Derived directly from StatCan First Official Language Spoken counts, exact 4-way split.",
+    "primary_language_canada": "Derived from real 2021 Census single-response mother-tongue counts. Includes an explicit Other language bucket (9.6%) for the real remainder outside the 12 named languages, rather than silently dropping it -- reconstructed total matches the real single-response mother-tongue population exactly.",
+    "demo_ethnicity_canada": "Derived from StatCan real Visible Minority classification (which explicitly excludes Indigenous identity -- see indigenous_identity). White/European corresponds to StatCan Not a visible minority. Multiracial/Other combines Multiple visible minorities + Visible minority n.i.e. Reconstructed total matches StatCan reported total.",
+    "indigenous_identity": "Derived from StatCan real Indigenous identity counts, a separate census question from ethnicity/visible-minority status per StatCan methodology and Section 35 of the Constitution Act, 1982. Multiple Indigenous identities combines Multiple Indigenous responses + Indigenous responses not included elsewhere. Reconstructed total matches StatCan reported total."
   },
   "province": {
     "Newfoundland and Labrador": 0.0138,

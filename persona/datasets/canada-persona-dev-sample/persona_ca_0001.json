@@ -1,7 +1,7 @@
 {
   "persona_id": "ca_0001",
   "version": "canada-concept-v0.1",
-  "province": "British Columbia",
+  "province": "Ontario",
   "dimensions": {
     "purch_grocery_frequency": "Bi-weekly",
     "purch_grocery_brand_orientation": "Mostly store-brand",
@@ -102,11 +102,15 @@
     "media_streaming_adoption": "None",
     "media_outdoor_direct_responsiveness": "Occasionally notices it",
     "media_primary_device": "Tablet",
-    "age_bracket": "65-74",
-    "demo_marital_status": "Married",
-    "demo_household_income": "$25k-50k",
-    "highest_education": "Vocational / cert",
-    "gender_identity": "Self-described",
-    "demo_generation": "Boomer"
+    "linguistic_community": "Allophone",
+    "primary_language_canada": "French",
+    "demo_ethnicity_canada": "White/European",
+    "indigenous_identity": "Non-Indigenous",
+    "age_bracket": "35-44",
+    "demo_marital_status": "In a relationship",
+    "demo_household_income": "$100k-200k",
+    "highest_education": "Secondary",
+    "gender_identity": "Man",
+    "demo_generation": "Gen Z"
   }
 }
