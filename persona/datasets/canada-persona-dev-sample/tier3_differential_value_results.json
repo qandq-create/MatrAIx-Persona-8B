@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Pricing (subscription)",
+    "prompt": "A local gym is offering a $45/month membership with no long-term contract. How likely are you to sign up?",
+    "choice_a": {
+      "value": 3,
+      "confidence": 0.85,
+      "rationale": "The $45/month cost represents a moderate financial commitment, and without a long-term contract, it offers flexibility. However, as a cost-sensitive parent, I would weigh this against potential usage frequency and alternative fitness options to ensure it aligns with my budget and time constraints."
+    },
+    "choice_b": {
+      "value": 4,
+      "confidence": 0.85,
+      "rationale": "The $45/month price is affordable and no long-term contract reduces risk, aligning with price-driven priorities. However, low health consciousness may temper enthusiasm."
+    }
+  },
+  {
+    "name": "Promotion response",
+    "prompt": "Your regular grocery store is running a 'Buy One Get One 50% Off' promotion this week on items you normally buy. How likely are you to take advantage of it?",
+    "choice_a": {
+      "value": 4,
+      "confidence": 0.85,
+      "rationale": "The discount aligns with my cost-sensitive nature and regular shopping habits, making it likely to take advantage of the promotion while maintaining budget control."
+    },
+    "choice_b": {
+      "value": 5,
+      "confidence": 0.85,
+      "rationale": "The 'Buy One Get One 50% Off' promotion aligns with my price-driven mindset and habit of using flyers to maximize savings. Since I already plan meals rigorously and prioritize store-brand items, this deal would allow me to stock up without compromising quality or budget."
+    }
+  },
+  {
+    "name": "Channel preference",
+    "prompt": "You need a new winter coat. Would you rather shop in-store at a mall department store, or order online and have it delivered? How likely are you to choose in-store?",
+    "choice_a": {
+      "value": 4,
+      "confidence": 0.85,
+      "rationale": "In-store shopping allows me to check the fit and quality of the winter coat directly, which is important for ensuring it meets my needs as a parent with young kids. This reduces the risk of purchasing an ill-fitting item, aligning with my preference for security and risk-averse decisions."
+    },
+    "choice_b": {
+      "value": 2,
+      "confidence": 0.85,
+      "rationale": "Prefer online shopping for price comparison and convenience, aligns with price-driven tendencies and DIY efficiency."
+    }
+  },
+  {
+    "name": "Brand switching",
+    "prompt": "Your usual brand of coffee just raised its price by $2 per bag. A similar-quality competitor brand is $2 cheaper. How likely are you to switch brands?",
+    "choice_a": {
+      "value": 3,
+      "confidence": 0.75,
+      "rationale": "The price difference is significant, and the competitor offers similar quality, making the switch financially beneficial. However, brand loyalty and the need to adjust routines might slightly reduce the likelihood."
+    },
+    "choice_b": {
+      "value": 4,
+      "confidence": 0.85,
+      "rationale": "The $2 price increase is significant given my price-sensitive nature, and the competitor offers similar quality at a lower cost. However, I tend to stick to known brands unless the price difference is substantial, which it is here."
+    }
+  },
+  {
+    "name": "Category-specific: home improvement",
+    "prompt": "You have a leaky kitchen faucet. How likely are you to attempt to fix it yourself rather than hiring a plumber?",
+    "choice_a": {
+      "value": 3,
+      "confidence": 0.75,
+      "rationale": "Balancing cost-saving desires with risk aversion; preferDIY with limited confidence due to potential for mistakes."
+    },
+    "choice_b": {
+      "value": 3,
+      "confidence": 0.85,
+      "rationale": "High DIY confidence and regular home improvement projects suggest willingness to attempt repairs, but risk-averse nature and preference for proven methods may temper enthusiasm."
+    }
+  },
+  {
+    "name": "Category-specific: dining",
+    "prompt": "A new restaurant just opened in your neighborhood offering a tasting menu at $85 per person. How likely are you to try it in the next month?",
+    "choice_a": {
+      "value": 2,
+      "confidence": 0.85,
+      "rationale": "High cost and budget constraints make it unlikely, but a 2 allows for potential exceptions like special occasions."
+    },
+    "choice_b": {
+      "value": 3,
+      "confidence": 0.85,
+      "rationale": "The $85 price point is higher than my typical dining-out budget, but the tasting menu could be worth it if the restaurant has positive reviews or aligns with my preference for fine dining experiences."
+    }
+  }
+]
