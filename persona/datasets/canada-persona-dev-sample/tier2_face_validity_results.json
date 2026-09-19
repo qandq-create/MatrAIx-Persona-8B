@@ -1,0 +1,54 @@
+{
+  "private_label": {
+    "answers": [
+      "Yes",
+      "No",
+      "No",
+      "No",
+      "Yes",
+      "Yes",
+      "No",
+      "No"
+    ],
+    "simulated_pct_yes": 0.375,
+    "published_pct": 0.62
+  },
+  "sales_response": {
+    "answers": [
+      "Yes",
+      "No",
+      "Yes",
+      "Yes",
+      "Yes",
+      "Yes",
+      "No",
+      "Yes"
+    ],
+    "simulated_pct_yes": 0.75,
+    "published_pct": 0.76
+  },
+  "regional_alcohol": {
+    "qc_answers": [
+      "Wine",
+      "Beer",
+      "Wine",
+      "Wine",
+      "Beer",
+      "Wine",
+      "Wine",
+      "Beer"
+    ],
+    "on_answers": [
+      "Wine",
+      "Wine",
+      "Wine",
+      "Wine",
+      "Wine",
+      "Wine",
+      "Wine",
+      "Beer"
+    ],
+    "qc_wine_pct": 0.625,
+    "on_wine_pct": 0.875
+  }
+}
